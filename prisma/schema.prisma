@@ -2,7 +2,85 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum EstadoPedido {
+  PEDIDO
+  ENTREGADO
+  PREPARADO
+  FACTURADO
+}
+
+enum Rol {
+  USER
+  ADMIN
+  ROOT
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique @db.VarChar(50)
+  activo    Boolean  @default(true)
+  pedidos   Pedido[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("clientes")
+}
+
+model Producto {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique @db.VarChar(50)
+  pedidos   Pedido[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("productos")
+}
+
+model Proveedor {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique @db.VarChar(50)
+  pedidos   Pedido[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("proveedores")
+}
+
+model Pedido {
+  id            Int          @id @default(autoincrement())
+  clienteId     Int
+  productoId    Int
+  proveedorId   Int
+  cliente       Cliente      @relation(fields: [clienteId], references: [id])
+  producto      Producto     @relation(fields: [productoId], references: [id])
+  proveedor     Proveedor    @relation(fields: [proveedorId], references: [id])
+  modelo        String?      @db.VarChar(50)
+  referencia    String?      @db.VarChar(10)
+  unidades      Int
+  parte         Int?
+  oferta        String?      @db.VarChar(10)
+  observaciones String?      @db.Text
+  estado        EstadoPedido @default(PEDIDO)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([estado])
+  @@map("pedidos")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @db.VarChar(50)
+  email     String   @unique @db.VarChar(50)
+  password  String   @unique @db.VarChar(50)
+  rol       Rol      @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("usuarios")
 }
