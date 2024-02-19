@@ -49,10 +49,17 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.data).toBeDefined()  
     expect(res.body.meta).toBeDefined()  
     expect(res.body.data.length).toBe(2)
+    expect(res.body.meta.page).toBe(1)
+    expect(res.body.meta.limit).toBe(Constant.LIMITE_PAGINACION_CLIENTES)
+    expect(res.body.meta.totalResults).toBe(2)
+    expect(res.body.meta.sort).toBe("createdAt")
+    expect(res.body.meta.order).toBe("asc")
+    expect(res.body.meta.prev).toBeNull()
+    expect(res.body.meta.next).toBeDefined()
   })
 
   it("GET - debe devolver todos los clientes ordenados por nombre de forma descendente", async () => {
-    const res = await request(server).get("/api/v1/clientes?sort=-nombre")        
+    const res = await request(server).get("/api/v1/clientes?_sort=nombre")        
     expect(res.statusCode).toBe(StatusCodes.OK)
     expect(res.body.status).toBe(Constant.SUCCESS)
     expect(res.body.message).toBe("")
@@ -62,7 +69,7 @@ describe(`TEST: ${url}`, () => {
   })
 
   it("GET - debe devolver todos los clientes ordenados por nombre de forma ascendente", async () => {
-    const res = await request(server).get("/api/v1/clientes?sort=nombre")        
+    const res = await request(server).get("/api/v1/clientes?_sort=nombre&_order=desc")        
     expect(res.statusCode).toBe(StatusCodes.OK)
     expect(res.body.status).toBe(Constant.SUCCESS)
     expect(res.body.message).toBe("")

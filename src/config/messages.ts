@@ -1,5 +1,7 @@
 export const Message = {
   ERROR_GENERAL: "Opps, ha sido imposible completar la acción solocitada. Por favor, contacte con el administrador de la aplicación.",
+  ARGUMENTO_NO_VALIDO: "El argumento (id) no es un número válido",  
+  
   CLIENTE_REGISTRADO: "Cliente registrado con éxito",
   CLIENTE_ACTUALIZADO: "Cliente actualizado con éxito",
   CLIENTE_NO_ENCONTRADO: "Cliente no encontrado",
