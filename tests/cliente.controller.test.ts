@@ -132,7 +132,7 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.message).toBe(Message.CLIENTE_NOMBRE_LARGO)
   })
 
-  it("xx - POST - debe devolver un error 400 si el cliente ya existe en la base de datos", async () => {        
+  it("POST - debe devolver un error 400 si el cliente ya existe en la base de datos", async () => {        
     const cliente = { nombre: nombreCliente1 }
     const res = await request(server).post(url).send(cliente)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)  
