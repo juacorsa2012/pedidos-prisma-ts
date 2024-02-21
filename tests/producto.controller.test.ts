@@ -113,7 +113,7 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.message).toBe(Message.PRODUCTO_NOMBRE_REQUERIDO)
   })
 
-  it(`POST - debe devolver un error 400 cuando el nombre del cliente es inferior a ${longitudMinimaNombreProducto} caracteres`, async () => {
+  it(`POST - debe devolver un error 400 cuando el nombre del producto es inferior a ${longitudMinimaNombreProducto} caracteres`, async () => {
     const producto = { nombre: "xx" }
     const res = await request(server).post(url).send(producto)
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)          
@@ -121,7 +121,7 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.message).toBe(Message.PRODUCTO_NOMBRE_CORTO)
   })
 
-  it(`POST - debe devolver un error 400 cuando el nombre del cliente es superior a ${longitudMaximaNombreProducto} caractares`, async () => {
+  it(`POST - debe devolver un error 400 cuando el nombre del producto es superior a ${longitudMaximaNombreProducto} caractares`, async () => {
     const longitudMaxima = Constant.LONGITUD_MAXIMA_NOMBRE_PRODUCTO
     let producto = { nombre: new Array(longitudMaxima+2).join('a') }
     const res = await request(server).post(url).send(producto)

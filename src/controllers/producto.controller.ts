@@ -3,9 +3,9 @@ import { Request, Response } from "express"
 import { ProductoService } from "../services"
 import { Message } from "../config/messages"
 import { logger } from "../config/logger"
+import { Constant } from '../config/constants'
 import { HttpResponseBadRequest, HttpResponseCreated, HttpResponseError, 
   HttpResponseNotFound, HttpResponseOk } from "../utils/response"
-import { Constant } from '../config/constants'
 
 
 export class ProductoController {

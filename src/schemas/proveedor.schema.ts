@@ -8,8 +8,8 @@ export const CreateProveedorSchema = z.object({
       required_error: Message.PROVEEDOR_NOMBRE_REQUERIDO,
       invalid_type_error: Message.PROVEEDOR_NOMBRE_CADENA
     })
-    .min(Constant.LONGITUD_MINIMA_NOMBRE_CLIENTE, Message.PROVEEDOR_NOMBRE_CORTO)
-    .max(Constant.LONGITUD_MAXIMA_NOMBRE_CLIENTE, Message.PROVEEDOR_NOMBRE_LARGO)
+    .min(Constant.LONGITUD_MINIMA_NOMBRE_PROVEEDOR, Message.PROVEEDOR_NOMBRE_CORTO)
+    .max(Constant.LONGITUD_MAXIMA_NOMBRE_PROVEEDOR, Message.PROVEEDOR_NOMBRE_LARGO)
   })
 })
 
