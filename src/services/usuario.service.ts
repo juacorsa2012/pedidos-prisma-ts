@@ -20,11 +20,7 @@ export class UsuarioService {
   }
   
   static async buscarUsuarioPorEmail (email: string) {
-    return await prisma.usuario.findUnique({ 
-      where: {
-        email
-      }
-     })
+    return await prisma.usuario.findUnique({ where: { email } })
   }
     
   static async obtenerUsuario (id: number): Promise<Usuario | null> {

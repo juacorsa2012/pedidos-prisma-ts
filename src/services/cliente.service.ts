@@ -8,7 +8,8 @@ type Cliente = {
 
 export class ClienteService {
   static async registrarCliente (nombre: string): Promise<Cliente> {
-    return await prisma.cliente.create({ data: { nombre } }) }
+    return await prisma.cliente.create({ data: { nombre } }) 
+  }
 
   static async obtenerCliente (id: number): Promise<Cliente | null> {
     return await prisma.cliente.findUnique({ where: { id }})

@@ -4,13 +4,13 @@ import { Constant } from "../config/constants"
 
 export const CreatePedidoSchema = z.object({
   body: z.object({
-    cliente: z.string({
+    cliente: z.number({
       required_error: Message.PEDIDO_CLIENTE_REQUERIDO
     }),
-    producto: z.string({
+    producto: z.number({
       required_error: Message.PEDIDO_PRODUCTO_REQUERIDO      
     }),
-    proveedor: z.string({
+    proveedor: z.number({
       required_error: Message.PEDIDO_PROVEEDOR_REQUERIDO     
     }),    
     unidades: z.number({
@@ -27,13 +27,13 @@ export const CreatePedidoSchema = z.object({
 
 export const UpdatePedidoSchema = z.object({
   body: z.object({
-    cliente: z.string({
+    cliente: z.number({
       required_error: Message.PEDIDO_CLIENTE_REQUERIDO
     }),
-    producto: z.string({
+    producto: z.number({
       required_error: Message.PEDIDO_PRODUCTO_REQUERIDO      
     }),
-    proveedor: z.string({
+    proveedor: z.number({
       required_error: Message.PEDIDO_PROVEEDOR_REQUERIDO     
     }),    
     unidades: z.number({

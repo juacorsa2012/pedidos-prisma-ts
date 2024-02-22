@@ -1,6 +1,6 @@
 import express from "express"
 import { Constant } from "./config/constants"
-import { clienteRouter, productoRouter, proveedorRouter, usuarioRouter } from "./routes"
+import { clienteRouter, pedidoRouter, productoRouter, proveedorRouter, usuarioRouter } from "./routes"
 
 export const app = express()
 
@@ -12,7 +12,4 @@ app.use(Constant.URL_V1_CLIENTES, clienteRouter)
 app.use(Constant.URL_V1_PRODUCTOS, productoRouter)
 app.use(Constant.URL_V1_PROVEEDORES, proveedorRouter)
 app.use(Constant.URL_V1_USUARIOS, usuarioRouter)
-
-/*
 app.use(Constant.URL_V1_PEDIDOS, pedidoRouter)
-*/
