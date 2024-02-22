@@ -9,3 +9,5 @@ usuarioRouter.get('/:id', UsuarioController.obtenerUsuario)
 
 usuarioRouter.post('/', validateSchema(CreateUsuarioSchema), UsuarioController.registrarUsuario)
 
+usuarioRouter.delete('/:id', UsuarioController.borrarUsuario)
+

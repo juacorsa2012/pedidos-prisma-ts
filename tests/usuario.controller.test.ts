@@ -43,8 +43,8 @@ describe(`TEST: ${url}`, () => {
     //expect(typeof UsuarioController.actualizarUsuario).toBe("function")
   })
 
-  it.skip("debe existir un función llamada borrarUsuario", () => {
-    //expect(typeof UsuarioController.borrarUsuario).toBe("function")
+  it("debe existir un función llamada borrarUsuario", () => {
+    expect(typeof UsuarioController.borrarUsuario).toBe("function")
   })
 
   it.skip("debe existir un función llamada loginUsuario", () => {
@@ -72,10 +72,6 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.status).toBe(Constant.ERROR)
     expect(res.body.message).toBe(Message.USUARIO_NO_ENCONTRADO)   
   })  
-
-
-
-
 
   it("POST - debe registrar un usuario correctamente", async () => {
     const usuario = { nombre: "Usuario 3", email: "usuario3@test.com", password: passwordGenerico, rol: Constant.ROL_ADMIN }
@@ -169,7 +165,22 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.message).toBe(Message.USUARIO_YA_EXISTE)
   })
 
+  it("DELETE - debe borrar un usuario con éxito", async() => {    
+    const res = await request(server).delete(url + usuario1.id)
+    expect(res.statusCode).toBe(StatusCodes.OK)       
+    expect(res.body.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)  
+    expect(res.body.message).toBe(Message.USUARIO_BORRADO)
+  })    
 
+  it("DELETE - debe dar un error 400 si borramos un usuario que no existe", async() => {    
+    const id = 99999
+    const res = await request(server).delete(url + id)
+    expect(res.statusCode).toBe(StatusCodes.NOT_FOUND)       
+    expect(res.body.statusCode).toBe(StatusCodes.NOT_FOUND)
+    expect(res.body.status).toBe(Constant.ERROR)  
+    expect(res.body.message).toBe(Message.USUARIO_NO_ENCONTRADO)
+  })    
 
 
 

@@ -61,4 +61,29 @@ export class UsuarioController {
   }
 
 
+  static async borrarUsuario (req: Request, res: Response) {
+    const id = +req.params.id
+
+    if (isNaN(id)) {
+      HttpResponseBadRequest(res, Message.ARGUMENTO_NO_VALIDO)
+      return
+    }   
+    
+    try {
+      const usuario = await UsuarioService.obtenerUsuario(id)
+  
+      if (!usuario) {
+        HttpResponseNotFound(res, Message.USUARIO_NO_ENCONTRADO)
+        return
+      }
+
+      await UsuarioService.borrarUsuario(id)  
+      HttpResponseOk(res, null, null, Message.USUARIO_BORRADO)
+    } catch (error: any) {
+        logger.error(`${error}`)
+        HttpResponseError(res, Message.ERROR_GENERAL)
+    }   
+
+  }
+
 }

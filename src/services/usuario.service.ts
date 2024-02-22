@@ -30,12 +30,12 @@ export class UsuarioService {
   static async obtenerUsuario (id: number): Promise<Usuario | null> {
     return await prisma.usuario.findUnique({ where: { id }})
   }
-
-  /*
-  static async borrarUsuario (id: string) {
-    return await UsuarioModel.findByIdAndDelete(id)
+  
+  static async borrarUsuario (id: number): Promise<void> {
+    await prisma.usuario.delete({ where: { id} })
   }
 
+  /*
   static async obtenerTotalUsuarios () {
     return await UsuarioModel.countDocuments()
   }
