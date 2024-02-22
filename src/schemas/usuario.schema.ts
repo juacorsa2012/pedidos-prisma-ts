@@ -22,12 +22,7 @@ export const CreateUsuarioSchema = z.object({
       required_error: Message.USUARIO_EMAIL_REQUERIDO,
       invalid_type_error: Message.USUARIO_EMAIL_FORMATO_NO_VALIDO
     })
-    .email(Message.USUARIO_EMAIL_FORMATO_NO_VALIDO),
-
-    rol: z.string({
-      required_error: Message.USUARIO_ROL_REQUERIDO,
-      invalid_type_error: Message.USUARIO_ROL_REQUERIDO,
-    }) 
+    .email(Message.USUARIO_EMAIL_FORMATO_NO_VALIDO)
   })
 })
 

@@ -77,7 +77,7 @@ model Usuario {
   id        Int      @id @default(autoincrement())
   nombre    String   @db.VarChar(50)
   email     String   @unique @db.VarChar(50)
-  password  String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
   rol       Rol      @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
