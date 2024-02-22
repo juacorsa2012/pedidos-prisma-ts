@@ -26,13 +26,12 @@ export class UsuarioService {
       }
      })
   }
-
-  
-  /*
-  static async obtenerUsuario (id: string) {
-    return await UsuarioModel.findOne({ _id: id })
+    
+  static async obtenerUsuario (id: number): Promise<Usuario | null> {
+    return await prisma.usuario.findUnique({ where: { id }})
   }
 
+  /*
   static async borrarUsuario (id: string) {
     return await UsuarioModel.findByIdAndDelete(id)
   }

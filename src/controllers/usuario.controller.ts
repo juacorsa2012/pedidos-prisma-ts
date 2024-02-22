@@ -10,6 +10,31 @@ import { crearToken } from "../utils/createToken"
 
 
 export class UsuarioController {
+
+
+  static async obtenerUsuario (req: Request, res: Response) {
+    const id = +req.params.id
+
+    if (isNaN(id)) {
+      HttpResponseBadRequest(res, Message.ARGUMENTO_NO_VALIDO)
+      return
+    }    
+
+    try {
+      const usuario = await UsuarioService.obtenerUsuario(id)
+  
+      if (!usuario) {
+        HttpResponseNotFound(res, Message.USUARIO_NO_ENCONTRADO)
+        return
+      }
+  
+      HttpResponseOk(res, usuario, null)   
+    } catch (error: any) {
+        logger.error(`${error}`)
+        HttpResponseError(res, Message.ERROR_GENERAL)
+    }
+  }
+
   static async registrarUsuario (req: Request, res: Response) {
     try {            
       const { nombre, password, email, rol } = req.body

@@ -19,14 +19,62 @@ describe(`TEST: ${url}`, () => {
   beforeEach(async () => {       
     await prisma.usuario.deleteMany()
     usuario1 = await prisma.usuario.create({ data: { nombre: nombreUsuario1, password: passwordGenerico, email: "usuario1@test.com", rol: "ADMIN" } })
-    usuario2 = await prisma.usuario.create({ data: { nombre: nombreUsuario2, password: passwordGenerico, email: "usuario2@test.com", rol: "USER" } })    
-    
+    usuario2 = await prisma.usuario.create({ data: { nombre: nombreUsuario2, password: passwordGenerico, email: "usuario2@test.com", rol: "USER" } })        
   })
 
   afterAll(async () => {
     prisma.$disconnect()
     server.close()
   })
+
+  it.skip("debe existir un función llamada obtenerUsuarios", () => {
+    //expect(typeof UsuarioController.obtenerUsuarios).toBe("function")
+  })
+
+  it("debe existir un función llamada obtenerUsuario", () => {
+    expect(typeof UsuarioController.obtenerUsuario).toBe("function")
+  })
+
+  it("debe existir un función llamada registrarUsuario", () => {
+    expect(typeof UsuarioController.registrarUsuario).toBe("function")
+  })
+
+  it.skip("debe existir un función llamada actualizarUsuario", () => {
+    //expect(typeof UsuarioController.actualizarUsuario).toBe("function")
+  })
+
+  it.skip("debe existir un función llamada borrarUsuario", () => {
+    //expect(typeof UsuarioController.borrarUsuario).toBe("function")
+  })
+
+  it.skip("debe existir un función llamada loginUsuario", () => {
+    //expect(typeof UsuarioController.loginUsuario).toBe("function")
+  })
+
+
+  it("GET - debe devolver un usuario", async () => {
+    const res = await request(server).get(url + usuario1.id)
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)           
+    expect(res.body.message).toBe("")
+    expect(res.body.data.nombre).toBe(usuario1.nombre)
+    expect(res.body.data.email).toBe(usuario1.email)
+    expect(res.body.data.rol).toBe(usuario1.rol)
+    expect(res.body.data.password).toBeDefined()  
+    expect(res.body.meta).toBeDefined()  
+    expect(res.body.data.id).toBeDefined()
+  })
+
+  it("GET - debe devolver un error 404 si el usuario no existe", async () => {         
+    const id = 999999999
+    const res = await request(server).get(url + id)
+    expect(res.statusCode).toBe(StatusCodes.NOT_FOUND)   
+    expect(res.body.status).toBe(Constant.ERROR)
+    expect(res.body.message).toBe(Message.USUARIO_NO_ENCONTRADO)   
+  })  
+
+
+
 
 
   it("POST - debe registrar un usuario correctamente", async () => {

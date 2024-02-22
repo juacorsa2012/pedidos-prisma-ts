@@ -22,7 +22,8 @@
     "test:productos:watch": "npx jest --watchAll tests/producto.controller.test.ts",
     "test:proveedores": "npx jest tests/proveedor.controller.test.ts",
     "test:proveedores:watch": "npx jest --watchAll tests/proveedor.controller.test.ts",
-    "test:usuarios": "npx jest tests/usuario.controller.test.ts"
+    "test:usuarios": "npx jest tests/usuario.controller.test.ts",
+    "test:usuarios:watch": "npx jest --watchAll tests/usuario.controller.test.ts"
   },
   "keywords": [],
   "author": "",

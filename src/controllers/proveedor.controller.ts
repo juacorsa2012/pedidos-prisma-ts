@@ -1,13 +1,13 @@
 import { Prisma } from '@prisma/client'
 import { Request, Response } from "express"
-import { ProductoService, ProveedorService } from "../services"
+import { ProveedorService } from "../services"
 import { Message } from "../config/messages"
 import { logger } from "../config/logger"
 import { Constant } from '../config/constants'
 import { HttpResponseBadRequest, HttpResponseCreated, HttpResponseError, 
   HttpResponseNotFound, HttpResponseOk } from "../utils/response"
 
-  export class ProveedorController {
+export class ProveedorController {
     static async obtenerProveedores (req: Request, res: Response) {
       const { _page, _limit, _sort, _order} = req.query
       

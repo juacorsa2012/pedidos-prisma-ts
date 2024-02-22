@@ -5,4 +5,7 @@ import { UsuarioController } from "../controllers"
 
 export const usuarioRouter: Router = Router()
 
+usuarioRouter.get('/:id', UsuarioController.obtenerUsuario)
+
 usuarioRouter.post('/', validateSchema(CreateUsuarioSchema), UsuarioController.registrarUsuario)
+
