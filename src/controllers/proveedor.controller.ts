@@ -8,39 +8,39 @@ import { HttpResponseBadRequest, HttpResponseCreated, HttpResponseError,
   HttpResponseNotFound, HttpResponseOk } from "../utils/response"
 
 export class ProveedorController {
-    static async obtenerProveedores (req: Request, res: Response) {
-      const { _page, _limit, _sort, _order} = req.query
+  static async obtenerProveedores (req: Request, res: Response) {
+    const { _page, _limit, _sort, _order} = req.query
       
-      const limit = +(_limit ?? Constant.LIMITE_PAGINACION_PROVEEDORES)
-      const offset = (+(_page ?? 1) - 1 ) * limit
-      const sort = (_sort ?? "createdAt").toString()
-      const order = _order ?? "asc"
-      const orderBy = {[sort]: order}
-      const page = (+(_page ?? 1))
+    const limit = +(_limit ?? Constant.LIMITE_PAGINACION_PROVEEDORES)
+    const offset = (+(_page ?? 1) - 1 ) * limit
+    const sort = (_sort ?? "createdAt").toString()
+    const order = _order ?? "asc"
+    const orderBy = {[sort]: order}
+    const page = (+(_page ?? 1))
   
-      try {            
-        const totalProveedores = await ProveedorService.obtenerTotalProveedores()
-        const proveedores = await prisma?.proveedor.findMany({
-          orderBy,
-          skip: offset,
-          take: limit        
-        })
+    try {            
+      const totalProveedores = await ProveedorService.obtenerTotalProveedores()
+      const proveedores = await prisma?.proveedor.findMany({
+        orderBy,
+        skip: offset,
+        take: limit        
+      })
   
-        const meta = {
-          page,
-          limit,
-          totalResults: proveedores?.length,
-          total: totalProveedores,
-          sort,
-          order,
-          next: `/api/v1/proveedores?_page=${(+page + 1)}&_limit=${+limit}`,
-          prev: (+page-1 > 0) ? `/api/v1/proveedores?_page=${(+page-1)}&_limit=${+limit}`: null
-        }
+      const meta = {
+        page,
+        limit,
+        totalResults: proveedores?.length,
+        total: totalProveedores,
+        sort,
+        order,
+        next: `/api/v1/proveedores?_page=${(+page + 1)}&_limit=${+limit}`,
+        prev: (+page-1 > 0) ? `/api/v1/proveedores?_page=${(+page-1)}&_limit=${+limit}`: null
+      }
   
-        HttpResponseOk(res, proveedores, meta)    
+      HttpResponseOk(res, proveedores, meta)    
       } catch (error: any) {
-          logger.error(`${error}`)
-          HttpResponseError(res, Message.ERROR_GENERAL)
+        logger.error(`${error}`)
+        HttpResponseError(res, Message.ERROR_GENERAL)
       }
     }
   
@@ -123,5 +123,4 @@ export class ProveedorController {
           HttpResponseError(res, Message.ERROR_GENERAL)
       }
     } 
-
   }

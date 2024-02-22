@@ -27,8 +27,8 @@ describe(`TEST: ${url}`, () => {
     server.close()
   })
 
-  it.skip("debe existir un función llamada obtenerUsuarios", () => {
-    //expect(typeof UsuarioController.obtenerUsuarios).toBe("function")
+  it("debe existir un función llamada obtenerUsuarios", () => {
+    expect(typeof UsuarioController.obtenerUsuarios).toBe("function")
   })
 
   it("debe existir un función llamada obtenerUsuario", () => {
@@ -39,18 +39,67 @@ describe(`TEST: ${url}`, () => {
     expect(typeof UsuarioController.registrarUsuario).toBe("function")
   })
 
-  it.skip("debe existir un función llamada actualizarUsuario", () => {
-    //expect(typeof UsuarioController.actualizarUsuario).toBe("function")
+  it("debe existir un función llamada actualizarUsuario", () => {
+    expect(typeof UsuarioController.actualizarUsuario).toBe("function")
   })
 
   it("debe existir un función llamada borrarUsuario", () => {
     expect(typeof UsuarioController.borrarUsuario).toBe("function")
   })
 
-  it.skip("debe existir un función llamada loginUsuario", () => {
-    //expect(typeof UsuarioController.loginUsuario).toBe("function")
+  it("debe existir un función llamada loginUsuario", () => {
+    expect(typeof UsuarioController.loginUsuario).toBe("function")
   })
 
+  it("GET - debe devolver todos los usuarios", async () => {
+    const res = await request(server).get(url)        
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)
+    expect(res.body.message).toBe("")
+    expect(res.body.data).toBeDefined()  
+    expect(res.body.meta).toBeDefined()  
+    expect(res.body.data.length).toBe(2)
+  })
+
+  it("GET - debe devolver todos los usuarios ordenados por nombre de forma descendente", async () => {
+    const res = await request(server).get("/api/v1/usuarios?sort=-nombre")        
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)
+    expect(res.body.message).toBe("")
+    expect(res.body.data).toBeDefined()  
+    expect(res.body.meta).toBeDefined()  
+    expect(res.body.data.length).toBe(2)
+  })
+
+  it("GET - debe devolver todos los usuarios ordenados por nombre de forma ascendente", async () => {
+    const res = await request(server).get("/api/v1/usuarios?sort=nombre")        
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)
+    expect(res.body.message).toBe("")
+    expect(res.body.data).toBeDefined()  
+    expect(res.body.meta).toBeDefined()  
+    expect(res.body.data.length).toBe(2)
+  })
+
+  it("GET - debe devolver todos los usuarios ordenados por email de forma ascendente", async () => {
+    const res = await request(server).get("/api/v1/usuarios?sort=email")        
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)
+    expect(res.body.message).toBe("")
+    expect(res.body.data).toBeDefined()  
+    expect(res.body.meta).toBeDefined()  
+    expect(res.body.data.length).toBe(2)
+  })
+
+  it("GET - debe devolver todos los usuarios ordenados por email de forma descendente", async () => {
+    const res = await request(server).get("/api/v1/usuarios?sort=-email")        
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)
+    expect(res.body.message).toBe("")
+    expect(res.body.data).toBeDefined()  
+    expect(res.body.meta).toBeDefined()  
+    expect(res.body.data.length).toBe(2)
+  })
 
   it("GET - debe devolver un usuario", async () => {
     const res = await request(server).get(url + usuario1.id)
@@ -182,11 +231,48 @@ describe(`TEST: ${url}`, () => {
     expect(res.body.message).toBe(Message.USUARIO_NO_ENCONTRADO)
   })    
 
+  it("PUT - debe actualizar un cliente con éxito", async() => {
+    const usuario = { nombre: "Usuario", password: passwordGenerico, rol: Constant.ROL_ADMIN, email: "usuario@test.com" }
+    const res = await request(server).put(url + usuario1.id).send(usuario)
+    expect(res.statusCode).toBe(StatusCodes.OK)
+    expect(res.body.status).toBe(Constant.SUCCESS)   
+    expect(res.body.message).toBe(Message.USUARIO_ACTUALIZADO)
+    expect(res.body.statusCode).toBe(StatusCodes.OK)
+  })  
 
+  it("PUT - debe dar un error 400 si actualizamos un usuario sin nombre", async() => {
+    const usuario = { password: passwordGenerico, rol: Constant.ROL_ADMIN, email: "usuario@test.com" }
+    const res = await request(server).put(url + usuario1._id).send(usuario)
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)       
+    expect(res.body.statusCode).toBe(StatusCodes.BAD_REQUEST)
+    expect(res.body.status).toBe(Constant.ERROR)  
+    expect(res.body.message).toBe(Message.USUARIO_NOMBRE_REQUERIDO)
+  })    
 
+  it("PUT - debe dar un error 400 si actualizamos un usuario sin password", async() => {
+    const usuario = { nombre: "Usuario", rol: Constant.ROL_ADMIN, email: "usuario@test.com" }
+    const res = await request(server).put(url + usuario1.id).send(usuario)
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)       
+    expect(res.body.statusCode).toBe(StatusCodes.BAD_REQUEST)
+    expect(res.body.status).toBe(Constant.ERROR)  
+    expect(res.body.message).toBe(Message.USUARIO_PASSWORD_REQUERIDO)
+  })    
 
+  it("PUT - debe dar un error 400 si actualizamos un usuario sin email", async() => {
+    const usuario = { nombre: "Usuario", rol: Constant.ROL_ADMIN, password: passwordGenerico }
+    const res = await request(server).put(url + usuario1.id).send(usuario)
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)       
+    expect(res.body.statusCode).toBe(StatusCodes.BAD_REQUEST)
+    expect(res.body.status).toBe(Constant.ERROR)  
+    expect(res.body.message).toBe(Message.USUARIO_EMAIL_REQUERIDO)
+  })    
 
-
-
-
+  it("PUT - debe dar un error 400 si actualizamos un usuario sin rol", async() => {
+    const usuario = { nombre: "Usuario", password: passwordGenerico, email: "usuario@test.com" }
+    const res = await request(server).put(url + usuario1.id).send(usuario)
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST)       
+    expect(res.body.statusCode).toBe(StatusCodes.BAD_REQUEST)
+    expect(res.body.status).toBe(Constant.ERROR)  
+    expect(res.body.message).toBe(Message.USUARIO_ROL_REQUERIDO)
+  })    
 })

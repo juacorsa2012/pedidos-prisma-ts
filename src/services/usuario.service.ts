@@ -34,14 +34,19 @@ export class UsuarioService {
   static async borrarUsuario (id: number): Promise<void> {
     await prisma.usuario.delete({ where: { id} })
   }
-
-  /*
-  static async obtenerTotalUsuarios () {
-    return await UsuarioModel.countDocuments()
+  
+  static async obtenerTotalUsuarios (): Promise<number> {
+    return await prisma.usuario.count()
   }
-
-  static async actualizarUsuario (id: string, usuario: Usuario) {
-    await UsuarioModel.findByIdAndUpdate(id, usuario)
-    //return await UsuarioModel.findOne({ _id: id })
-  }*/
+  
+  static async actualizarUsuario (id: number, usuario: Usuario): Promise<Usuario | null> {   
+    return await prisma.usuario.update({
+      where: { id },
+      data: {
+        nombre: usuario.nombre,
+        password: usuario.password,
+        email: usuario.email
+      }
+    })    
+  }
 }
