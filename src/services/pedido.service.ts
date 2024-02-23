@@ -38,7 +38,40 @@ export class PedidoService {
     })
   }
 
+  static async obtenerPedido (id: number) {
+    return await prisma.pedido.findFirst({ 
+      where: { id },
+      include: {
+        cliente: true,
+        producto: true,
+        proveedor: true
+      }
+    })
+  }
 
+  static async obtenerTotalPedidos (estado: EstadoPedido) {
+    return await prisma.pedido.count({ where: { estado } })
+  }
 
+  static async borrarPedido (id: number) {
+    return await prisma.pedido.delete({ where: { id } })
+  }
 
+  static async actualizarPedido (id: number, pedido: Pedido) {
+    return await prisma.pedido.update({
+      where: { id },
+      data: {
+        clienteId: pedido.clienteId, 
+        productoId: pedido.productoId,
+        proveedorId: pedido.proveedorId,
+        modelo: pedido.modelo,
+        referencia: pedido.referencia,
+        unidades: pedido.unidades,
+        parte: pedido.parte,
+        oferta: pedido.oferta,
+        observaciones: pedido.observaciones,
+        estado: pedido.estado as EstadoPedido
+      }
+    })    
+  }
 }

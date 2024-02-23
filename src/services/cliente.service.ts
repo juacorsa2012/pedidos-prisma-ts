@@ -11,21 +11,21 @@ export class ClienteService {
     return await prisma.cliente.create({ data: { nombre } }) 
   }
 
-  static async obtenerCliente (id: number): Promise<Cliente | null> {
+  static async obtenerCliente (id: number) {
     return await prisma.cliente.findUnique({ where: { id }})
   }
 
-  static async existeCliente (nombre: string): Promise<boolean> {
+  static async existeCliente (nombre: string) {
     const search = nombre.toLowerCase().trim()    
     const cliente = await prisma.cliente.findFirst({ where: { nombre: search } })         
     return cliente == null ? false : true
   }
 
-  static async obtenerTotalClientes (): Promise<number> {
+  static async obtenerTotalClientes () {
     return await prisma.cliente.count()
   }
 
-  static async actualizarCliente (id: number, nombre: string, activo: boolean): Promise<Cliente | null> {   
+  static async actualizarCliente (id: number, nombre: string, activo: boolean) {   
     return await prisma.cliente.update({
       where: { id },
       data: {

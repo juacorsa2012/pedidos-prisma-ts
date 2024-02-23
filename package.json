@@ -14,6 +14,7 @@
     "seed:productos": "npx ts-node-dev src/seed/clientes.seed.ts",
     "seed:proveedores": "npx ts-node-dev src/seed/clientes.seed.ts",
     "seed:usuarios": "npx ts-node-dev src/seed/usuarios.seed.ts",
+    "seed:pedidos": "npx ts-node-dev src/seed/pedidos.seed.ts",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",

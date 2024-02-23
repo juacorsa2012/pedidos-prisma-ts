@@ -14,7 +14,8 @@ const longitudMinimaNombreProveedor = Constant.LONGITUD_MINIMA_NOMBRE_PROVEEDOR
 const longitudMaximaNombreProveedor = Constant.LONGITUD_MAXIMA_NOMBRE_PROVEEDOR
 
 describe(`TEST: ${url}`, () => {
-  beforeEach(async () => {       
+  beforeEach(async () => {   
+    await prisma.pedido.deleteMany()    
     await prisma.proveedor.deleteMany({})
     proveedor1 = await prisma.proveedor.create({ data: { nombre: nombreProveedor1 } })
     await prisma.proveedor.create({ data: { nombre: nombreProveedor2 } })

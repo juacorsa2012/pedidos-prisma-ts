@@ -23,19 +23,19 @@ export class UsuarioService {
     return await prisma.usuario.findUnique({ where: { email } })
   }
     
-  static async obtenerUsuario (id: number): Promise<Usuario | null> {
+  static async obtenerUsuario (id: number) {
     return await prisma.usuario.findUnique({ where: { id }})
   }
   
-  static async borrarUsuario (id: number): Promise<void> {
+  static async borrarUsuario (id: number) {
     await prisma.usuario.delete({ where: { id} })
   }
   
-  static async obtenerTotalUsuarios (): Promise<number> {
+  static async obtenerTotalUsuarios () {
     return await prisma.usuario.count()
   }
   
-  static async actualizarUsuario (id: number, usuario: Usuario): Promise<Usuario | null> {   
+  static async actualizarUsuario (id: number, usuario: Usuario) {   
     return await prisma.usuario.update({
       where: { id },
       data: {

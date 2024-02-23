@@ -15,6 +15,7 @@ const longitudMaximaNombreCliente = Constant.LONGITUD_MAXIMA_NOMBRE_CLIENTE
 
 describe(`TEST: ${url}`, () => {
   beforeEach(async () => {       
+    await prisma.pedido.deleteMany()
     await prisma.cliente.deleteMany()
     cliente1 = await prisma.cliente.create({ data: { nombre: nombreCliente1 } })
     await prisma.cliente.create({ data: { nombre: nombreCliente2 } })

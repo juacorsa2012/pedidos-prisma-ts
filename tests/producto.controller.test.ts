@@ -14,7 +14,8 @@ const longitudMinimaNombreProducto = Constant.LONGITUD_MINIMA_NOMBRE_PRODUCTO
 const longitudMaximaNombreProducto = Constant.LONGITUD_MAXIMA_NOMBRE_PRODUCTO
 
 describe(`TEST: ${url}`, () => {
-  beforeEach(async () => {       
+  beforeEach(async () => {      
+    await prisma.pedido.deleteMany() 
     await prisma.producto.deleteMany()
     producto1 = await prisma.producto.create({ data: { nombre: nombreProducto1 } })
     await prisma.producto.create({ data: { nombre: nombreProducto2 } })

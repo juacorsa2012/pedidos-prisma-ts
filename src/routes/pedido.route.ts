@@ -5,4 +5,12 @@ import { PedidoController } from "../controllers"
 
 export const pedidoRouter: Router = Router()
 
+pedidoRouter.get('/', PedidoController.obtenerPedidos)
+
+pedidoRouter.get('/:id', PedidoController.obtenerPedido)
+
 pedidoRouter.post('/', validateSchema(CreatePedidoSchema), PedidoController.registrarPedido)
+
+pedidoRouter.delete('/:id', PedidoController.borrarPedido)
+
+pedidoRouter.put('/:id',validateSchema(UpdatePedidoSchema), PedidoController.actualizarPedido)
