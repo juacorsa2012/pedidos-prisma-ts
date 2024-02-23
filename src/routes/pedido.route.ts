@@ -2,6 +2,7 @@ import { Router } from "express"
 import { CreatePedidoSchema, UpdatePedidoSchema } from "../schemas"
 import { validateSchema } from "../middlewares/validateSchema"
 import { PedidoController } from "../controllers"
+import { isAuth, isRol } from "../middlewares/auth"
 
 export const pedidoRouter: Router = Router()
 

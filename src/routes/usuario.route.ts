@@ -2,6 +2,7 @@ import { Router } from "express"
 import { CreateUsuarioSchema, UpdateUsuarioSchema } from "../schemas"
 import { validateSchema } from "../middlewares/validateSchema"
 import { UsuarioController } from "../controllers"
+import { isAuth, isRol } from "../middlewares/auth"
 
 export const usuarioRouter: Router = Router()
 
