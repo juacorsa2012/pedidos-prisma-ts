@@ -12,3 +12,4 @@ A continuación se detallan las características principales de la aplicación.
 * Se ha usado los paquetes helmet, xss-clean, y hpp para la seguridad.
 * Se ha limitado el número de peticiones que pueden atenderse usando express-rate-limit.
 * Los tests están implementados en Jest (carpeta tests).
+* TODO: FALTA DOCUMENTAR LA APLICACION USANDO SWAGGER O POSTMAN
